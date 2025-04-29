@@ -1,0 +1,40 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../../../global/external-secrets-operator
+
+# Use patches to override global default values
+patches:
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Application
+    name: external-secrets-operator
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: dev-cluster-01-external-secrets-operator
+    - op: replace
+      path: /spec/source/targetRevision
+      value: 0.10.3
+    - op: replace
+      path: /spec/project
+      value: dev-cluster-01-charts
+
+# Patch extra config manifest
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Application
+    name: external-secrets-operator-extra-config
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: dev-cluster-01-external-secrets-operator-extra-config
+    - op: replace
+      path: /spec/source/path
+      value: environments/development/dev-cluster-01/external-secrets-operator/config
+    - op: replace
+      path: /spec/project
+      value: dev-cluster-01-charts

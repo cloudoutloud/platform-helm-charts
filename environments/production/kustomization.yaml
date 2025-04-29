@@ -3,4 +3,6 @@ kind: Kustomization
 
 resources:
 - ./cert-manager
-- ./external-secrets-operator
+
+# Add another chart example
+# - ./external-secrets-operator
