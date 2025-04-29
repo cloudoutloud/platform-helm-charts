@@ -21,17 +21,17 @@ This repo gives a structure approach to deploy open source charts, to a giving c
 ### General layout
 
 
-### Bootstrap Argocd
+### Bootstrap and upgrading Argocd
 
-
-### Upgrading Argocd
+See dedicated readme in path `bootstrap-argocd-chart`
 
 
 ### Adding a open source chart
 
+Add a new folder under the global directory, populate it with an app.yaml to defined the open source helm chart using a helm Argocd application manifest.
+
 
 ### Reference a chart in environment
-
 
 TODO
 

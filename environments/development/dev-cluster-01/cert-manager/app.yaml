@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../../../global/cert-manager
+
+# Use patches to override global default values
+patches:
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Application
+    name: cert-manager
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: dev-cluster-01-cert-manager
+    - op: replace
+      path: /spec/source/targetRevision
+      value: 1.16.0
+    - op: replace
+      path: /spec/project
+      value: dev-cluster-01-charts

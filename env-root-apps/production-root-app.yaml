@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: production-root-app
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+  description: "Root application project for production environment"
+  sourceRepos:
+  - "*"
+  destinations:
+  - namespace: "*"
+    server: https://kubernetes.default.svc
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: production-root-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: production-root-app
+  source:
+    repoURL: "https://github.com/cloudoutloud/platform-helm-charts"
+    path: environments/production/
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
