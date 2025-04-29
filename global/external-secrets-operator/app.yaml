@@ -1,0 +1,57 @@
+# Main helm chart config
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-secrets-operator
+  namespace: argocd
+spec:
+  projects: ""
+  source:
+    repoURL: https://charts.external-secrets.io
+    targetRevision: 0.10.3
+    chart: external-secrets
+    helm:
+      releaseName: external-secrets-operator
+      # Generic values that remain static across all environments
+      valuesObject:
+        global:
+          tolerations: []
+          affinity: {}
+        serviceAccount:
+          create: true
+          annotations: {}
+          name: external-secrets-operator
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  destination:
+    name: in-cluster
+    namespace: external-secrets-operator
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+---
+# Locally sourced crd config deployed outside of the helm chart
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-secrets-operator-extra-config
+  namespace: argocd
+spec:
+  projects: ""
+  source:
+    repoURL: https://github.com/cloudoutloud/platform-helm-charts
+    path: ""
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: external-secrets-operator
+  syncPolicy:
+    automated:
+      prune: true

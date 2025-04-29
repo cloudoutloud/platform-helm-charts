@@ -1,0 +1,15 @@
+# Override default values for Argo CD Helm chart
+argo-cd:
+  dex:
+    enabled: true
+  notifications:
+    enabled: true
+  applicationSets:
+    enabled: true
+  server:
+    extraArgs:
+    - --insecure
+  configs:
+    params:
+      server.basehref: https://argocd.example.com
+      server.rootpath: /argocd

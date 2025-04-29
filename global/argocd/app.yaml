@@ -1,0 +1,16 @@
+# This argocd application will track the manually deployed argo-cd helm chart
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: ""
+  source:
+    repoURL: "https://github.com/cloudoutloud/platform-helm-charts"
+    path: bootstrap-argocd-chart/argo-cd
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
