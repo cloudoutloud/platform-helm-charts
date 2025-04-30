@@ -25,6 +25,7 @@ kubectl create ns argocd
 
 ```
 helm repo add argo-cd https://argoproj.github.io/argo-helm
+# Will generate a Chart.lock file
 helm dep update bootstrap-argocd-chart/argo-cd/
 ```
 
@@ -34,4 +35,15 @@ Form the root of the repo
 
 ```
 helm install argo-cd bootstrap-argocd-chart/argo-cd/ -n argocd
+```
+
+Will take a minute to deploy once finished should see output below
+
+```
+NAME: argo-cd
+LAST DEPLOYED: Wed Apr 30 21:16:26 2025
+NAMESPACE: argocd
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
 ```
