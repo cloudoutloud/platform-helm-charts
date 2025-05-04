@@ -39,6 +39,8 @@ Within each global Argocd application manifest you can either specifiy `valuesOb
 
 For `valueFiles` you can specify a common values files in the global dir and then a override file in a overlay environment folder.
 
+An example of this is in the global folder `kube-prometheus-stack`
+
 ## Kustomize
 
 [Kustomize](https://kustomize.io/) tool is used for templating.
