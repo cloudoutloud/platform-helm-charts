@@ -47,3 +47,48 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 ```
+
+### Interact with argocd
+
+Currently there is no ingress configured you can port-forward
+
+```
+kubectl port-forward svc/argo-cd-argocd-server -n argocd 8080:443
+```
+
+Then you can use argocd cli to login and interact via terminal
+
+```
+argocd login localhost:8080
+```
+
+Password for the argocd instance can be found in secret named `argocd-initial-admin-secret` username is `admin`
+
+### Adding external cluster to Argocd instance
+
+Adding an external cluster to one of the tooling Argocd instance.
+
+Once logged in with the previous command argocd login run
+
+```
+argocd cluster add <cluster-context-name>
+```
+
+### Upgrade Argocd instance
+
+Upgrading will effect both dev/prod Argocd instance, so test on dev before fulling syncing prod.
+
+When upgrading version check offical [docs](https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/overview/) for any breaking changes and address.
+
+Your have to check what app verison alligns with what chart version, use command.
+
+```
+helm search repo argo/argo-cd --versions
+```
+
+To upgrade update both version in `Chart.yaml`, and update comment on app version.
+
+Then generate new lock using command.
+
+```
+helm dep update bootstrap-argocd-chart/argo-cd/
