@@ -5,8 +5,30 @@ resources:
   - ../../../../global/kube-prometheus-stack
 
 patches:
-  - target:
-        group: argoproj.io
-        version: v1alpha1
-        kind: Application
-        name: kube-prometheus-stack
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Application
+    name: kube-prometheus-stack
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: dev-cluster-01-kube-prometheus-stack
+    - op: replace
+      path: /spec/sources/0/targetRevision
+      value: 65.6.0
+    - op: replace
+      path: /spec/project
+      value: dev-cluster-01-charts
+    - op: replace
+      path: /spec/sources/0/helm/releaseName
+      value: prometheus
+    - op: replace
+      path: /spec/destination/name
+      value: dev-cluster-01
+    - op: replace
+      path: /spec/sources/1/path
+      value: environments/development/dev-cluster-01/kube-prometheus-stack/config
+    - op: replace
+      path: /spec/sources/0/helm/valueFiles/1
+      value: $repo/environments/development/dev-cluster-01/kube-prometheus-stack/override-values.yaml
