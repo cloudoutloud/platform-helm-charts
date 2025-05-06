@@ -17,15 +17,15 @@ jobs:
       uses: actions/checkout@v2
 
     - name: 'Kustomize build development environment'
-      uses: karancode/kustomize-github-action@v1.2.4
+      uses: karancode/kustomize-github-action@v1.3.2
       with:
         kustomize_version: '5.4.3'
         token: ${{ secrets.GITHUB_TOKEN }}
-        kustomize_build_path: 'environments/development'
+        kustomize_build_dir: 'environments/development'
 
     - name: 'Kustomize build production environment'
-      uses: karancode/kustomize-github-action@v1.2.4
+      uses: karancode/kustomize-github-action@v1.3.2
       with:
         kustomize_version: '5.4.3'
         token: ${{ secrets.GITHUB_TOKEN }}
-        kustomize_build_path: 'environments/production'
+        kustomize_build_dir: 'environments/production'
