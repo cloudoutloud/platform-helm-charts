@@ -21,13 +21,47 @@ Clusters and any additional infrastructure would be provisioned outside this rep
 
 ### General layout
 
+- bootstrap-argocd-chart - Core Argocd chart applied manually
+- env-root-apps - Applied manually Argocd apps to track sub environment folders
+- environments > development > dev-cluster-01 - Example environment folder
+- global > cert-manager - Example 
+
+```
+├── bootstrap-argocd-chart
+│   ├── README.md
+│   └── argo-cd
+│       ├── Chart.lock
+│       ├── Chart.yaml
+│       └── values.yaml
+├── env-root-apps
+│   ├── README.md
+│   ├── development-root-app.yaml
+├── environments
+│   ├── development
+│   │   ├── dev-cluster-01
+│   │   │   ├── cert-manager
+│   │   │   │   └── kustomization.yaml
+│   │   │   ├── kustomization.yaml
+│   │   │   └── project.yaml
+│   │   ├── dev-cluster-02
+│   │   └── kustomization.yaml
+│   └── production
+└── global
+    ├── README.md
+    ├── argocd
+    │   ├── app.yaml
+    │   └── kustomization.yaml
+    ├── cert-manager
+    │   ├── app.yaml
+    │   └── kustomization.yaml
+```
+
+
 ### Bootstrap and upgrading Argocd
 
 See dedicated readme in path `bootstrap-argocd-chart`
 
-
 ### Adding a open-source chart
-
 
 Add a new folder under the global directory, populate it with an app.yaml to define the open source helm chart using a helm Argocd application manifest.
 
@@ -39,7 +73,7 @@ This config could also be unrelated to helm charts, if you would like a Argocd a
 
 ## Values files vs Values objects
 
-Within each global Argocd application manifest you can either specifiy `valuesObject` in line vaules or reference a sepertae file `valueFiles` but you can use both.
+Within each global Argocd application manifest you can either specify `valuesObject` in line values or reference a separate file `valueFiles` but you can use both.
 
 For `valueFiles` you can specify a common values files in the global dir and then a override file in a overlay environment folder.
 
@@ -51,8 +85,6 @@ An example of this is in the global folder `kube-prometheus-stack`
 Global config application config should be generic enough for any environment. Values can then be override or patches in relevant environment sub folders.
 
 There is a GitHub workflow that runs on every pull request to main, this is to check that Kustomize can build the directory.
-
-### Reference a chart in environment
 
 TODO
 

@@ -1,2 +1,3 @@
 bootstrap-argocd-chart/**/charts
 cluster-keys.json
+.DS_Store
