@@ -1,0 +1,8 @@
+# Directory pattern
+development:
+  - changed-files:
+      - any-glob-to-any-file: 'environments/development/**'
+
+production:
+  - changed-files:
+      - any-glob-to-any-file: "environments/production/**"
