@@ -1,0 +1,65 @@
+name: Argocd Autodiscovery Example
+
+autodiscovery:
+  # 1 pull request per a chart
+  groupby: individual
+  # scmid is applied to all crawlers
+  scmid: default
+  # actionid is applied to all crawlers
+  actionid: default
+  crawlers:
+    argocd:
+      # Only update on major versions
+      versionfilter:
+        kind: semver
+        pattern: major
+        strict: true
+        # To ignore specific path
+        # ignore:
+        #   # Ignore manifest match path "dev/*.yaml"
+        #   - path: dev/*.yaml
+        #   # Ignore any Helm chart named "kubewarden-crds"
+        #   - charts:
+        #       "kubewarden-crds": ""
+        #   # Ignore any helm chart repository named "https://charts.jetstack.io"
+        # - repositories:
+        #     - "https://bitnami-labs.github.io/sealed-secrets"
+
+        #   # Ignore any Helm chart named "kubewarden-crds" in manifest path "dev/*.yaml"
+        #   - path: dev/*.yaml
+        #     charts:
+        #       "kubewarden-crds": ""
+        # Only accepts the same rule than ignore
+        #only:
+        #  - path: helmfile.d/*
+        #  - charts:
+        #      "kubewarden-crds": ""
+        #  - repositories:
+        #      - "https://charts.jetstack.io"
+        #
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: 'github-actions[bot]'
+      username: 'github-actions[bot]'
+      email: 'github-actions[bot]@users.noreply.github.com'
+      # user: 'cloudoutloud'
+      # username: 'cloudoutloud'
+      owner: 'cloudoutloud'
+      # email: ''
+      repository: 'platform-helm-charts'
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      branch: 'main'
+      commitusingapi: true
+      # gpg:
+      #   passphrase: ''
+      #   signingKey: |
+
+actions:
+  default:
+    kind: "github/pullrequest"
+    spec:
+      mergemethod: "squash"
+    scmid: "default"

@@ -24,7 +24,7 @@ Clusters and any additional infrastructure would be provisioned outside this rep
 - bootstrap-argocd-chart - Core Argocd chart applied manually
 - env-root-apps - Applied manually Argocd apps to track sub environment folders
 - environments > development > dev-cluster-01 - Example environment folder
-- global > cert-manager - Example 
+- global > cert-manager - Example
 
 ```
 ├── bootstrap-argocd-chart
@@ -56,7 +56,6 @@ Clusters and any additional infrastructure would be provisioned outside this rep
     │   └── kustomization.yaml
 ```
 
-
 ### Bootstrap and upgrading Argocd
 
 See dedicated readme in path `bootstrap-argocd-chart`
@@ -86,6 +85,16 @@ Global config application config should be generic enough for any environment. V
 
 There is a GitHub workflow that runs on every pull request to main, this is to check that Kustomize can build the directory.
 
-TODO
+## Updatecli
 
-- Implement updatecli
+[Updatecli](https://www.updatecli.io/) tool is used to raised pull request when a new version of a chart is released.
+
+This helps keep charts you are deploying update to date with the latest features and secuirty patches.
+
+Its currently set to manually be triggered via github action and will raise pull request on major versions.
+
+Its using the Argocd autodiscovery [plugin](https://www.updatecli.io/docs/plugins/autodiscovery/argocd/)
+
+`updatecli/default.yaml` is used to config.
+
+For more information see offical [documentation](https://www.updatecli.io/docs/prologue/introduction/)
