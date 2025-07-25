@@ -1,0 +1,67 @@
+name: Updatecli
+
+on:
+  # # Trigger Updatecli if a new commit land on the main branch
+  # push:
+  #   branches: [main]
+  # # Trigger Updatecli if a pullrequest is open targeting the main branch.
+  # # This is useful to test Updatecli manifest change
+  # pull_request:
+  #   branches: [main]
+  # Manually trigger Updatecli via GitHub UI
+  workflow_dispatch:
+    # # Trigger Updatecli once day by a cronjob
+    # schedule:
+    #   # * is a special character in YAML so you have to quote this string
+    #   # Run once a day
+    #   - cron: '0 0 * * *'
+
+    # # Job example with GH user and PAT token that signs commit with GPG
+    # jobs:
+    #   updatecli:
+    #     runs-on: "ubuntu-latest"
+    #     env:
+    #       UPDATECLI_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    #       # GPG_KEY: "${{ secrets.GPG_KEY }}"
+    #       # GPG_PASS_PHRASE: "${{ secrets.GPG_PASS_PHRASE }}"
+    #     steps:
+    #       - name: Checkout
+    #         uses: actions/checkout@v2
+
+    #       - name: Install Updatecli in the runner
+    #         uses: updatecli/updatecli-action@v2
+
+    #       - name: Run Updatecli in Dry Run mode
+    #         run: "updatecli diff --config ./updatecli/default.yaml"
+
+    #       - name: Run Updatecli in apply mode
+    #         run: "updatecli apply --config ./updatecli/default.yaml"
+
+    ## Job example when using a GH app to generate a token, needs --experimental flag for commit to be signed by the github app
+jobs:
+  updatecli:
+    runs-on: "ubuntu-latest"
+    env:
+      UPDATECLIBOT_APP_PRIVKEY: "${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Updatecli in the runner
+      uses: updatecli/updatecli-action@v2
+
+    - id: generate_token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ secrets.UPDATECLIBOT_APP_ID }}
+        private-key: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
+
+    - name: "Run updatecli in dryrun"
+      run: "updatecli diff --config ./updatecli/default.yaml"
+      env:
+        UPDATECLI_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+    - name: "Run updatecli"
+      run: "updatecli apply --config ./updatecli/default.yaml"
+      env:
+        UPDATECLI_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
