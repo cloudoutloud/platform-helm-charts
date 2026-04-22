@@ -85,11 +85,15 @@ Global config application config should be generic enough for any environment. V
 
 There is a GitHub workflow that runs on every pull request to main, this is to check that Kustomize can build the directory.
 
+## Claude skills
+
+The [.claude/skills](.claude/skills/) folder contains [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) skills scoped to this repo. See [.claude/skills/README.md](.claude/skills/README.md) for the full list, installation steps, and how to add a new skill.
+
 ## Updatecli
 
 [Updatecli](https://www.updatecli.io/) tool is used to raised pull request when a new version of a chart is released.
 
-This helps keep charts you are deploying update to date with the latest features and secuirty patches.
+This helps keep charts you are deploying update to date with the latest features and security patches.
 
 Its currently set to manually be triggered via github action and will raise pull request on major versions.
 
