@@ -87,6 +87,13 @@ There is a GitHub workflow that runs on every pull request to main, this is to c
 
 ## Claude skills
 
+---
+**NOTE**
+
+Skills are written by claude and tweaked by human so performance is usable.
+
+---
+
 The [.claude/skills](.claude/skills/) folder contains [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) skills scoped to this repo. See [.claude/skills/README.md](.claude/skills/README.md) for the full list, installation steps, and how to add a new skill.
 
 ## Updatecli

@@ -7,6 +7,7 @@ A collection of [Claude Code](https://docs.claude.com/en/docs/claude-code/overvi
 | Skill | Description |
 |---|---|
 | [cluster-analysis](.claude/skills/cluster-analysis/SKILL.md) | Read-only inspection of Kubernetes workloads across all namespaces to surface errors, crashes, failed pods, and unhealthy resources. |
+| [add-chart](.claude/skills/add-chart/SKILL.md) | Development only, add a new open-source Helm chart as an Argocd Application following the global → environment overlay pattern, including project sourceRepos and `kustomize build` validation. |
 
 ## Installation
 

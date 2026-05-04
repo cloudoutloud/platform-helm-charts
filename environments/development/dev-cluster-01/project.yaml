@@ -11,6 +11,7 @@ spec:
   sourceRepos:
   - "https://charts.jetstack.io"
   - "https://charts.external-secrets.io"
+  - "https://kubernetes-sigs.github.io/external-dns/"
   destinations:
   - namespace: "*"
     server: https://kubernetes.default.svc
