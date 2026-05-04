@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
 - ./argocd
 - ./cert-manager
+- ./external-dns
 - ./external-secrets-operator
 - ./kube-prometheus-stack

@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../../../global/external-dns
+
+# Use patches to override global default values
+patches:
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Application
+    name: external-dns
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: dev-cluster-01-external-dns
+    - op: replace
+      path: /spec/source/targetRevision
+      value: 1.21.1
+    - op: replace
+      path: /spec/project
+      value: dev-cluster-01-charts
