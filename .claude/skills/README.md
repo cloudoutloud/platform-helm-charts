@@ -4,10 +4,15 @@ A collection of [Claude Code](https://docs.claude.com/en/docs/claude-code/overvi
 
 ## Skills
 
+> [!NOTE]
+> Skills are created by Claude, they only interact with development cluster or in a read only mode.
+> You can use Claude to update and iterate if needed to preform better.
+
 | Skill | Description |
 |---|---|
 | [cluster-analysis](.claude/skills/cluster-analysis/SKILL.md) | Read-only inspection of Kubernetes workloads across all namespaces to surface errors, crashes, failed pods, and unhealthy resources. |
 | [add-chart](.claude/skills/add-chart/SKILL.md) | Development only, add a new open-source Helm chart as an Argocd Application following the global → environment overlay pattern, including project sourceRepos and `kustomize build` validation. |
+| [update-chart](.claude/skills/update-chart/SKILL.md) | Development only, bump an existing chart to a newer upstream version, diff the chart's default values, flag removed/renamed keys the repo overrides, update each dev overlay's `targetRevision` patch (overlays only — `global/` is read-only since prod consumes it), and validate with `kustomize build`. |
 
 ## Installation
 
