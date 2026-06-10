@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../../../global/airbyte-v2
+
+patches:
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Application
+    name: airbyte-v2
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: dev-cluster-01-airbyte-v2
+    - op: replace
+      path: /spec/sources/0/targetRevision
+      value: 2.1.0
+    - op: replace
+      path: /spec/project
+      value: dev-cluster-01-charts
+    - op: replace
+      path: /spec/sources/0/helm/releaseName
+      value: airbyte
+    - op: replace
+      path: /spec/destination/name
+      value: dev-cluster-01
+    - op: replace
+      path: /spec/sources/0/helm/valueFiles/1
+      value: $repo/environments/development/dev-cluster-01/airbyte-v2/override-values.yaml

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: airbyte-v2
+  namespace: argocd
+spec:
+  project: ""
+  sources:
+  - chart: airbyte
+    repoURL: https://airbytehq.github.io/charts
+    targetRevision: 2.1.0
+    helm:
+      releaseName: ""
+      valueFiles:
+      - $repo/global/airbyte-v2/values-common.yaml
+      - ""
+  - repoURL:
+    path: ""
+    targetRevision: HEAD
+    ref: repo
+  destination:
+    name: in-cluster
+    namespace: airbyte
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace=true

@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
 - ./argocd
+- ./airbyte-v2
 - ./cert-manager
 - ./external-dns
 - ./external-secrets-operator

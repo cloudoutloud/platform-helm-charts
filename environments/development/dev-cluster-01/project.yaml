@@ -12,6 +12,7 @@ spec:
   - "https://charts.jetstack.io"
   - "https://charts.external-secrets.io"
   - "https://kubernetes-sigs.github.io/external-dns/"
+  - "https://airbytehq.github.io/charts"
   destinations:
   - namespace: "*"
     server: https://kubernetes.default.svc
