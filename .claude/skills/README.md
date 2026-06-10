@@ -4,6 +4,10 @@ A collection of [Claude Code](https://docs.claude.com/en/docs/claude-code/overvi
 
 ## Skills
 
+> [!NOTE]
+> Skills are created by Claude, they only interact with development cluster or in a read only mode.
+> You can use Claude to update and iterate if needed to preform better.
+
 | Skill | Description |
 |---|---|
 | [cluster-analysis](.claude/skills/cluster-analysis/SKILL.md) | Read-only inspection of Kubernetes workloads across all namespaces to surface errors, crashes, failed pods, and unhealthy resources. |
