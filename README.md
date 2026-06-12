@@ -115,18 +115,13 @@ A helping hand for BAU type tasks.
 
 The agent uses the [GitHub MCP server](https://github.com/github/github-mcp-server) for all GitHub operations (creating branches, pushing files, opening PRs, filing issues). It authenticates exclusively via a Personal Access Token (PAT) set in the `GITHUB_BOT_PAT` environment variable.
 
-GitHub App authentication is not supported by the GitHub MCP server — see [github/github-mcp-server#132](https://github.com/github/github-mcp-server/issues/132). 
+GitHub App authentication is not supported by the GitHub MCP server. 
 
 Will update once supported, for now we can only use PAT. Downside is this makes it hard to know what agent has committed vs human as its always same owner.
 
 ### Claude skills
 
----
-**NOTE**
-
-Skills are written by claude and tweaked by human so performance is usable.
-
----
+**NOTE:** Skills are written by claude and tweaked by human so performance is usable.
 
 The [.claude/skills](.claude/skills/) folder contains [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) skills scoped to this repo. 
 
