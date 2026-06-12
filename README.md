@@ -28,32 +28,31 @@ Clusters and any additional infrastructure would be provisioned outside this rep
 
 ```
 ├── bootstrap-argocd-chart
-│   ├── README.md
-│   └── argo-cd
-│       ├── Chart.lock
-│       ├── Chart.yaml
-│       └── values.yaml
+│   ├── README.md
+│   └── argo-cd
+│       ├── Chart.lock
+│       ├── Chart.yaml
+│       └── values.yaml
 ├── env-root-apps
-│   ├── README.md
-│   ├── development-root-app.yaml
+│   ├── README.md
+│   ├── development-root-app.yaml
 ├── environments
-│   ├── development
-│   │   ├── dev-cluster-01
-│   │   │   ├── cert-manager
-│   │   │   │   └── kustomization.yaml
-│   │   │   ├── kustomization.yaml
-│   │   │   └── project.yaml
-│   │   ├── dev-cluster-02
-│   │   └── kustomization.yaml
-│   └── production
+│   ├── development
+│   │   ├── dev-cluster-01
+│   │   │   ├── cert-manager
+│   │   │   │   └── kustomization.yaml
+│   │   │   ├── kustomization.yaml
+│   │   │   └── project.yaml
+│   │   └── kustomization.yaml
+│   └── production
 └── global
     ├── README.md
     ├── argocd
-    │   ├── app.yaml
-    │   └── kustomization.yaml
+    │   ├── app.yaml
+    │   └── kustomization.yaml
     ├── cert-manager
-    │   ├── app.yaml
-    │   └── kustomization.yaml
+    │   ├── app.yaml
+    │   └── kustomization.yaml
 ```
 
 ### Bootstrap and upgrading Argocd
@@ -85,17 +84,6 @@ Global config application config should be generic enough for any environment. V
 
 There is a GitHub workflow that runs on every pull request to main, this is to check that Kustomize can build the directory.
 
-## Claude skills
-
----
-**NOTE**
-
-Skills are written by claude and tweaked by human so performance is usable.
-
----
-
-The [.claude/skills](.claude/skills/) folder contains [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) skills scoped to this repo. See [.claude/skills/README.md](.claude/skills/README.md) for the full list, installation steps, and how to add a new skill.
-
 ## Updatecli
 
 [Updatecli](https://www.updatecli.io/) tool is used to raised pull request when a new version of a chart is released.
@@ -109,3 +97,37 @@ Its using the Argocd autodiscovery [plugin](https://www.updatecli.io/docs/plugin
 `updatecli/default.yaml` is used to config.
 
 For more information see offical [documentation](https://www.updatecli.io/docs/prologue/introduction/)
+
+## AI integrations
+
+AI can work alongside engineers on this repo to reduce toil and complete BAU tasks related to this repo.
+Currently AI is limited to basic task, but this could be expanded further with correct guard rails.
+
+### Platform engineer agent
+
+The [.claude/agents/platform-engineer](.claude/agents/platform-engineer/AGENT.md) folder contains a [Claude Code](https://docs.claude.com/en/docs/claude-code/overview).
+
+It can run any of the skills below end-to-end and raise a pull request with the result — without (supposedly) being prompted for things it already knows from the repo conventions.
+
+A helping hand for BAU type tasks.
+
+**GitHub authentication**
+
+The agent uses the [GitHub MCP server](https://github.com/github/github-mcp-server) for all GitHub operations (creating branches, pushing files, opening PRs, filing issues). It authenticates exclusively via a Personal Access Token (PAT) set in the `GITHUB_BOT_PAT` environment variable.
+
+GitHub App authentication is not supported by the GitHub MCP server — see [github/github-mcp-server#132](https://github.com/github/github-mcp-server/issues/132). 
+
+Will update once supported, for now we can only use PAT. Downside is this makes it hard to know what agent has committed vs human as its always same owner.
+
+### Claude skills
+
+---
+**NOTE**
+
+Skills are written by claude and tweaked by human so performance is usable.
+
+---
+
+The [.claude/skills](.claude/skills/) folder contains [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) skills scoped to this repo. 
+
+See [.claude/skills/README.md](.claude/skills/README.md) for the full list, installation steps, and how to add a new skill.

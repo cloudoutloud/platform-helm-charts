@@ -1,6 +1,10 @@
 # claude-skills
 
-A collection of [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) platform ops skills related to this repository.
+A collection of [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) platform ops skills and agents related to this repository.
+
+## Platform Engineer Agent
+
+The **platform-engineer** agent (`.claude/agents/platform-engineer/AGENT.md`) wraps all four skills into a single autonomous persona. Invoke it via the Agent tool with `subagent_type: "platform-engineer"`, or ask Claude Code to use it directly. It can run any skill end-to-end and open a pull request with the result — without prompting for things it already knows from the repo conventions.
 
 ## Skills
 
