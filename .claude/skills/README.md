@@ -13,6 +13,7 @@ A collection of [Claude Code](https://docs.claude.com/en/docs/claude-code/overvi
 | [cluster-analysis](.claude/skills/cluster-analysis/SKILL.md) | Read-only inspection of Kubernetes workloads across all namespaces to surface errors, crashes, failed pods, and unhealthy resources. |
 | [add-chart](.claude/skills/add-chart/SKILL.md) | Development only, add a new open-source Helm chart as an Argocd Application following the global → environment overlay pattern, including project sourceRepos and `kustomize build` validation. |
 | [update-chart](.claude/skills/update-chart/SKILL.md) | Development only, bump an existing chart to a newer upstream version, diff the chart's default values, flag removed/renamed keys the repo overrides, update each dev overlay's `targetRevision` patch (overlays only — `global/` is read-only since prod consumes it), and validate with `kustomize build`. |
+| [report-cluster-issue](.claude/skills/report-cluster-issue/SKILL.md) | File a GitHub issue for a cluster finding via the GitHub MCP server, with fingerprint-based dedupe against open issues. Cluster read-only — only writes to GitHub. |
 
 ## Installation
 
